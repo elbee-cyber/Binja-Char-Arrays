@@ -1,7 +1,5 @@
-# Lab setup
-![f3d311108df8b8aa9447a2989299e453.png](:/85c3d8f077014016806cbc3357fa6132)
-
 # Inspiration
+Make the current community plugin better.
 
 # Software Description
 
