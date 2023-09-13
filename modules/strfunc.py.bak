@@ -1,0 +1,20 @@
+from binaryninja import *
+
+def search(bv,function,var_table):
+	full_break = False
+	for v in var_table.items():
+		for c in function.call_sites:
+			try:
+				call = int(bv.get_disassembly(c.address).split()[1], 16)
+			except:
+				continue
+			f = bv.get_function_at(call)
+			log_info("Call: "+str(f.symbol.name))
+			if f.symbol.type == SymbolType.ImportedFunctionSymbol and "str" in f.symbol.name:
+				p = str(c.hlil.params)
+				log_info("Params: "+p)
+				if "HLIL_ADDRESS_OF" in p and v[0] in p:
+					var_table[v[0]] += 1
+					log_alert(str(v[0]))
+					break
+	return var_table
